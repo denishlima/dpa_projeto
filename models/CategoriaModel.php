@@ -11,6 +11,7 @@ class CategoriaModel
     function __construct()
     {
         $this->db = new Conexao();
+        $this->criarTabela();
     }
 
     public function listar()
@@ -85,5 +86,18 @@ class CategoriaModel
             $lista[] = $categoria;
         }
         return $lista;
+    }
+
+    private function criarTabela() {
+        // Código sql para criação da tabela
+        $sql = "
+                CREATE TABLE IF NOT EXISTS categorias (
+                id int(11) NOT NULL AUTO_INCREMENT,
+                nome varchar(100) COLLATE utf8_bin NOT NULL,
+                PRIMARY KEY (id)
+                ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+                ";
+        // Executa código no banco de dados
+        return $this->db->executeSQL($sql);
     }
 }
