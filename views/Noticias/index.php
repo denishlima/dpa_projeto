@@ -13,16 +13,16 @@ $lista = $NoticiaModel->listar();
 <body>
     <?php include "../includes/menu.php"; ?>
     <div class="container">
-        <h2>Newsletter</h2>
+        <h2>Notícias</h2>
         <table class="table">
             <tr>
                 <th width="10%">ID</th>
                 <th width="10%">Titulo</th>
                 <th width="10%">Sintese</th>
-                <!-- <th width="10%">Data</th>
-                <th width="10%">Hora</th> -->
+                <th width="10%">Data</th>
+                <th width="10%">Hora</th>
                 <th width="10%">Texto</th>
-                <th width="20%">Opções</th>
+                <th width="10%">Opções</th>
 
             </tr>
             <?php foreach ($lista as $cat) { ?>
@@ -30,7 +30,8 @@ $lista = $NoticiaModel->listar();
                     <td><?php echo $cat->getId(); ?></td>
                     <td><?php echo $cat->getTitulo(); ?></td>
                     <td><?php echo $cat->getSintese(); ?></td>
-
+                    <td><?php echo $cat->getData(); ?></td>
+                    <td><?php echo $cat->getHora(); ?></td>
                     <td><?php echo $cat->getTexto(); ?></td>
 
                     <td>

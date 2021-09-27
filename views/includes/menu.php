@@ -19,7 +19,7 @@
                     <a class="nav-link" href="../Newsletter/">Newsletter</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../Noticias/">Noticias</a>
+                    <a class="nav-link" href="../Noticias/">Notícias</a>
                 </li>
                 <!--
                     <li class="nav-item dropdown">

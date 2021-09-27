@@ -11,6 +11,7 @@ class NoticiaModel
     function __construct()
     {
         $this->db = new Conexao();
+        $this->criarTabela();
     }
 
     public function listar()
@@ -38,6 +39,8 @@ class NoticiaModel
         $noticias = new Noticias();
         $noticias->setId($obj->id);
         $noticias->setTitulo($obj->titulo);
+        $noticias->setData($obj->data);
+        $noticias->setHora($obj->hora);
         $noticias->setSintese($obj->sintese);
         $noticias->setTexto($obj->texto);
         // retorna dados
@@ -53,8 +56,8 @@ class NoticiaModel
         // $hora = $noticias->getHora();
         $texto = $noticias->getTexto();
         // Cria string SQL
-        $sql = "INSERT INTO $this->tabela (titulo, sintese, texto) 
-                values ('$titulo', '$sintese',  '$texto');";
+        $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto) 
+                values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto');";
         // Executa SQL e retorna dados
         return $this->db->executeSQL($sql);
     }
@@ -67,6 +70,7 @@ class NoticiaModel
         $titulo = $noticias->getTitulo();
         $sintese = $noticias->getSintese();
         $texto = $noticias->getTexto();
+
         // Cria string SQL
         // $sql = "Update $this->tabela set nome = '$nome' where id = $id";
         $sql = "UPDATE $this->tabela set 
@@ -98,6 +102,8 @@ class NoticiaModel
             $noticias = new Noticias();
             $noticias->setId($obj->id);
             $noticias->setTitulo($obj->titulo);
+            $noticias->setData($obj->data);
+            $noticias->setHora($obj->hora);
             $noticias->setSintese($obj->sintese);
 
             $noticias->setTexto($obj->texto);
@@ -105,5 +111,20 @@ class NoticiaModel
             $lista[] = $noticias;
         }
         return $lista;
+    }
+    private function criarTabela()
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS Noticias  (
+            id int NOT NULL AUTO_INCREMENT ,
+            titulo varchar(45)   NOT NULL,
+            sintese TEXT NULL,
+            data date NOT NULL,
+            hora timestamp NOT NULL ,
+            texto  TEXT NULL,
+            PRIMARY KEY (id)
+          ) 
+        ";
+        return $this->db->executeSQL($sql);
     }
 }

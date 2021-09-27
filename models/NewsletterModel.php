@@ -11,6 +11,7 @@ class NewsletterModel
     function __construct()
     {
         $this->db = new Conexao();
+        $this->criarTabela();
     }
 
     public function listar()
@@ -52,7 +53,6 @@ class NewsletterModel
         $sql = "INSERT INTO $this->tabela (nome, email) VALUES('$email', '$nome')";
         // Cria string SQL
         // Executa SQL e retorna dados
-
         return $this->db->executeSQL($sql);
     }
 
@@ -92,6 +92,21 @@ class NewsletterModel
 
             $lista[] = $newsletter;
         }
+
+
         return $lista;
+    }
+
+    private function criarTabela()
+    {
+        $sql = "
+        CREATE TABLE IF NOT EXISTS Newsletter (
+            id int(11) NOT NULL  AUTO_INCREMENT,
+            nome varchar(45) NOT NULL,
+            email varchar(45)  NOT NULL,
+            PRIMARY KEY (id)
+          )
+        ";
+        return $this->db->executeSQL($sql);
     }
 }
