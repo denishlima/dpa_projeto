@@ -15,6 +15,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../Produtos/">Produtos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Newsletter/">Newsletter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Noticias/">Noticias</a>
+                </li>
                 <!--
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

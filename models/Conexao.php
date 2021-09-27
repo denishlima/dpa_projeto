@@ -1,6 +1,7 @@
 <?php
 
-class Conexao {
+class Conexao
+{
     private $servidor;
     private $user;
     private $pass;
@@ -15,7 +16,8 @@ class Conexao {
         $this->setNomeBanco($nomeBanco);
     }
 
-    public function conetar() {
+    public function conetar()
+    {
         $this->banco = new mysqli(
             $this->getServidor(),
             $this->getUser(),
@@ -28,11 +30,13 @@ class Conexao {
         return $this->banco;
     }
 
-    public function desconectar() {
+    public function desconectar()
+    {
         $this->banco->close();
     }
 
-    public function executeSQL($sql){
+    public function executeSQL($sql)
+    {
         // Inicia conexão com banco de dados
         $this->conetar();
         // Executa String SQL e armazena resposta na variável $rs
@@ -45,7 +49,7 @@ class Conexao {
 
     /**
      * Get the value of servidor
-     */ 
+     */
     public function getServidor()
     {
         return $this->servidor;
@@ -55,7 +59,7 @@ class Conexao {
      * Set the value of servidor
      *
      * @return  self
-     */ 
+     */
     public function setServidor($servidor)
     {
         $this->servidor = $servidor;
@@ -65,7 +69,7 @@ class Conexao {
 
     /**
      * Get the value of user
-     */ 
+     */
     public function getUser()
     {
         return $this->user;
@@ -75,7 +79,7 @@ class Conexao {
      * Set the value of user
      *
      * @return  self
-     */ 
+     */
     public function setUser($user)
     {
         $this->user = $user;
@@ -85,7 +89,7 @@ class Conexao {
 
     /**
      * Get the value of pass
-     */ 
+     */
     public function getPass()
     {
         return $this->pass;
@@ -95,7 +99,7 @@ class Conexao {
      * Set the value of pass
      *
      * @return  self
-     */ 
+     */
     public function setPass($pass)
     {
         $this->pass = $pass;
@@ -105,7 +109,7 @@ class Conexao {
 
     /**
      * Get the value of nomeBanco
-     */ 
+     */
     public function getNomeBanco()
     {
         return $this->nomeBanco;
@@ -115,7 +119,7 @@ class Conexao {
      * Set the value of nomeBanco
      *
      * @return  self
-     */ 
+     */
     public function setNomeBanco($nomeBanco)
     {
         $this->nomeBanco = $nomeBanco;
@@ -125,7 +129,7 @@ class Conexao {
 
     /**
      * Get the value of banco
-     */ 
+     */
     public function getBanco()
     {
         return $this->banco;
@@ -135,7 +139,7 @@ class Conexao {
      * Set the value of banco
      *
      * @return  self
-     */ 
+     */
     public function setBanco($banco)
     {
         $this->banco = $banco;
