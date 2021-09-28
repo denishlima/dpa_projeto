@@ -5,7 +5,7 @@ require_once "Podcast.php";
 class PodcastModel
 {
     private $db;
-    public $tabela = "Podcasts";
+    public $tabela = "podcasts";
 
     function __construct()
     {
