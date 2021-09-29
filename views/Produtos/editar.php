@@ -9,6 +9,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $produto->setId($id);
 
     $obj = $ProdutoModel->listById($produto);
+
+    # Requisita a classe
+    require_once "../../models/CategoriaModel.php";
+    # Gera instância da classe
+    $CategoriaModel = new CategoriaModel();
+    # Buscar todas as categorias
+    $lista = $CategoriaModel->listar();
+
 } else {
     header("location: index.php");
     exit();
@@ -28,6 +36,17 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <form action="../../controllers/Produtos/edit.php" method="post">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>">
             <div class="form-group">
+                <label for="idCategoria">Categoria:</label>
+                <select id="idCategoria" class="form-control" name="categoria" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($lista as $cat) { ?>
+                        <option value="<?php echo $cat->getId(); ?>"
+                        <?php if($cat->getId() == $obj->getCategoria()) echo "selected"; ?>
+                        ><?php echo $cat->getNome(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="idProduto">Produto:</label>
                 <input id="idProduto" class="form-control" type="text" name="produto" required value="<?php echo $obj->getProduto(); ?>">
             </div>
@@ -41,7 +60,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
             <div class="form-group">
                 <label for="idQtdeEstoque">Quantidade em estoque:</label>
-                <input id="idQtdeEstoque" class="form-control" type="number" name="qtdeEstoque" required  value="<?php echo $obj->getQtdeEstoque(); ?>">
+                <input id="idQtdeEstoque" class="form-control" type="number" name="qtdeEstoque" required value="<?php echo $obj->getQtdeEstoque(); ?>">
             </div>
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>

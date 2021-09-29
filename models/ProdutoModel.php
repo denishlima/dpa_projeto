@@ -41,6 +41,7 @@ class ProdutoModel
         $produto->setDescricao($obj->descricao);
         $produto->setValor($obj->valor);
         $produto->setQtdeEstoque($obj->qtdeEstoque);
+        $produto->setCategoria($obj->categoria_id);
         // retorna dados 
         return $produto;
     }
@@ -68,8 +69,10 @@ class ProdutoModel
         $descricao = $produto->getDescricao();
         $valor = $produto->getValor();
         $qtdeEstoque = $produto->getQtdeEstoque();
+        $categoria = $produto->getCategoria();
         // Cria string SQL 
-        $sql = "Update $this->tabela set produto = '$nome', descricao = '$descricao', valor = '$valor', qtdeEstoque = '$qtdeEstoque' where id = $id";
+        $sql = "Update $this->tabela set produto = '$nome', descricao = '$descricao', 
+        valor = '$valor', qtdeEstoque = '$qtdeEstoque', categoria_id='$categoria' where id = $id";
         // Executa SQL e retorna dados 
         return $this->db->executeSQL($sql);
     }

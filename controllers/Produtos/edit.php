@@ -8,6 +8,7 @@ if (isset($_POST['produto']) && !empty($_POST['produto'])) {
     $produto->setDescricao($_POST['descricao']);
     $produto->setValor($_POST['valor']);
     $produto->setQtdeEstoque($_POST['qtdeEstoque']);
+    $produto->setCategoria($_POST['categoria']);
     $rs = $ProdutoModel->edit($produto);
 }
 header("location: ../../views/Produtos/");
