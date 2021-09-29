@@ -17,7 +17,7 @@ $lista = $CategoriaModel->listar();
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Produtos</h2>
-        <form action="../../controllers/Produtos/add.php" method="post">
+        <form action="../../controllers/Produtos/add.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="idCategoria">Categoria:</label>
                 <select id="idCategoria" class="form-control" name="categoria" required>
@@ -42,6 +42,10 @@ $lista = $CategoriaModel->listar();
             <div class="form-group">
                 <label for="idQtdeEstoque">Quantidade em estoque:</label>
                 <input id="idQtdeEstoque" class="form-control" type="number" name="qtdeEstoque" required>
+            </div>
+            <div class="form-group">
+                <label for="idArquivo">Imagem: </label><br>
+                <input id="idArquivo" class="form-control-file" type="file" name="arquivo">
             </div>
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>

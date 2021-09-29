@@ -33,7 +33,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Produtos - Editar</h2>
-        <form action="../../controllers/Produtos/edit.php" method="post">
+        <form action="../../controllers/Produtos/edit.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>">
             <div class="form-group">
                 <label for="idCategoria">Categoria:</label>
@@ -61,6 +61,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <div class="form-group">
                 <label for="idQtdeEstoque">Quantidade em estoque:</label>
                 <input id="idQtdeEstoque" class="form-control" type="number" name="qtdeEstoque" required value="<?php echo $obj->getQtdeEstoque(); ?>">
+            </div>
+            <div class="form-group">
+                <label for="idArquivo">Imagem atual: </label><br>
+                <img src="../../uploads/Produtos/<?php echo $obj->getArquivo(); ?>" alt="" width="150px">
+            </div>
+            <div class="form-group">
+                <label for="idArquivo">Imagem: </label><br>
+                <input id="idArquivo" class="form-control-file" type="file" name="arquivo">
             </div>
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>

@@ -6,6 +6,7 @@ class Produto{
     public $valor;
     public $qtdeEstoque;
     public $categoria;
+    public $arquivo;
 
 
     /**
@@ -124,6 +125,26 @@ class Produto{
     public function setCategoria($categoria)
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of arquivo
+     */ 
+    public function getArquivo()
+    {
+        return $this->arquivo;
+    }
+
+    /**
+     * Set the value of arquivo
+     *
+     * @return  self
+     */ 
+    public function setArquivo($arquivo)
+    {
+        $this->arquivo = $arquivo;
 
         return $this;
     }
