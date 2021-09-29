@@ -18,7 +18,7 @@ $lista = $ProdutoModel->listar();
             <tr>
                 <th width="10%">ID</th>
                 <th width="40%">Produto</th>
-                <th width="20%">Descricao</th>
+                <th width="20%">Categoria</th>
                 <th width="10%">Valor</th>
                 <th width="10%">QtdEstoque</th>
                 <th width="10%">Opções</th>
@@ -27,7 +27,7 @@ $lista = $ProdutoModel->listar();
                 <tr>
                 <td><?php echo $cat->getId(); ?></td>
                     <td><?php echo $cat->getProduto(); ?></td>
-                    <td><?php echo $cat->getDescricao(); ?></td>
+                    <td><?php echo $cat->getCategoria(); ?></td>
                     <td><?php echo $cat->getValor(); ?></td>
                     <td><?php echo $cat->getQtdeEstoque(); ?></td>
                     <td>

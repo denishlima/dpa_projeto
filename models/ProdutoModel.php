@@ -16,7 +16,9 @@ class ProdutoModel
     public function listar()
     {
         // Cria string SQL 
-        $sql = "Select * from $this->tabela";
+        $sql = "Select p.*, c.nome from $this->tabela p
+                JOIN categorias c ON p.categoria_id = c.id
+                ORDER BY p.produto";
         // Executa código SQL 
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj 
@@ -99,6 +101,7 @@ class ProdutoModel
             $produto->setDescricao($obj->descricao);
             $produto->setValor($obj->valor);
             $produto->setQtdeEstoque($obj->qtdeEstoque);
+            $produto->setCategoria($obj->nome);
             $lista[] = $produto;
         }
         return $lista;
