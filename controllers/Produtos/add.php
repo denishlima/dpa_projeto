@@ -8,6 +8,7 @@ if (isset($_POST['produto']) && !empty($_POST['produto'])) {
     $Produto->setDescricao($_POST['descricao']);
     $Produto->setValor($_POST['valor']);
     $Produto->setQtdeEstoque($_POST['qtdeEstoque']);
+    $Produto->setCategoria($_POST['categoria']);
     $rs = $ProdutoModel->add($Produto);
 }
 

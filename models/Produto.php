@@ -5,6 +5,7 @@ class Produto{
     public $descricao;
     public $valor;
     public $qtdeEstoque;
+    public $categoria;
 
 
     /**
@@ -103,6 +104,26 @@ class Produto{
     public function setValor($valor)
     {
         $this->valor = $valor;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of categoria
+     */ 
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * Set the value of categoria
+     *
+     * @return  self
+     */ 
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
 
         return $this;
     }

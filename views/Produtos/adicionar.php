@@ -1,3 +1,11 @@
+<?php 
+# Requisita a classe
+require_once "../../models/CategoriaModel.php";
+# Gera instância da classe
+$CategoriaModel = new CategoriaModel();
+# Buscar todas as categorias
+$lista = $CategoriaModel->listar();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,7 +18,15 @@
     <div class="container">
         <h2>Produtos</h2>
         <form action="../../controllers/Produtos/add.php" method="post">
-
+            <div class="form-group">
+                <label for="idCategoria">Categoria:</label>
+                <select id="idCategoria" class="form-control" name="categoria" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($lista as $cat) { ?>
+                        <option value="<?php echo $cat->getId(); ?>"><?php echo $cat->getNome(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="idProduto">Produto:</label>
                 <input id="idProduto" class="form-control" type="text" name="produto" required>

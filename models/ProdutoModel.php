@@ -52,8 +52,10 @@ class ProdutoModel
         $descricao = $produto->getDescricao();
         $valor = $produto->getValor();
         $qtdeEstoque = $produto->getQtdeEstoque();
+        $categoria = $produto->getCategoria();
         // Cria string SQL 
-        $sql = "insert into $this->tabela (produto,descricao,valor,qtdeEstoque) values ('$nome','$descricao','$valor','$qtdeEstoque')";
+        $sql = "insert into $this->tabela (produto, descricao, valor, qtdeEstoque, categoria_id) 
+                values ('$nome', '$descricao', '$valor', '$qtdeEstoque', '$categoria')";
         // Executa SQL e retorna dados 
         return $this->db->executeSQL($sql);
     }
