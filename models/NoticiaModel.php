@@ -43,6 +43,7 @@ class NoticiaModel
         $noticias->setHora($obj->hora);
         $noticias->setSintese($obj->sintese);
         $noticias->setTexto($obj->texto);
+        $noticias->setArquivo($obj->arquivo);
         // retorna dados
         return $noticias;
     }
@@ -55,6 +56,7 @@ class NoticiaModel
         // $data = $noticias->getData();
         // $hora = $noticias->getHora();
         $texto = $noticias->getTexto();
+
         // Cria string SQL
         $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto) 
                 values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto');";
@@ -77,6 +79,16 @@ class NoticiaModel
                 titulo = '$titulo', sintese = '$sintese', texto = '$texto' WHERE id = $id";
         // Executa SQL e retorna dados
 
+        return $this->db->executeSQL($sql);
+    }
+    public function edit_file($noticias)
+    {
+        // pega dados do objeto 
+        $id = $noticias->getId();
+        $arquivo = $noticias->getArquivo();
+        // Cria string SQL 
+        $sql = "Update $this->tabela set arquivo = '$arquivo' where id = $id";
+        // Executa SQL e retorna dados 
         return $this->db->executeSQL($sql);
     }
 
@@ -112,9 +124,24 @@ class NoticiaModel
         }
         return $lista;
     }
+
+    public function insertId()
+    {
+        // Cria string SQL
+        $sql = "select max(id) as id from $this->tabela";
+        // Executa SQL e retorna dados
+        $rs = $this->db->executeSQL($sql);
+        // retorna último ID inserido na tabela
+        // Converte dados em obj 
+        $obj = $rs->fetch_object();
+        $noticias = new Noticias();
+        $noticias->setId($obj->id);
+        return $noticias;
+    }
     private function criarTabela()
     {
-        $sql = "
+        $sql = array();
+        $sql[] = "
         CREATE TABLE IF NOT EXISTS Noticias  (
             id int NOT NULL AUTO_INCREMENT ,
             titulo varchar(45)   NOT NULL,
@@ -125,6 +152,10 @@ class NoticiaModel
             PRIMARY KEY (id)
           ) 
         ";
-        return $this->db->executeSQL($sql);
+        $sql[] = "ALTER TABLE $this->tabela ADD COLUMN IF NOT EXISTS arquivo VARCHAR(40) null;";
+        // Executa código no banco de dados
+        foreach ($sql as $consulta) {
+            $this->db->executeSQL($consulta);
+        }
     }
 }

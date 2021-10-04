@@ -9,7 +9,7 @@
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Notícias</h2>
-        <form action="../../controllers/Noticias/add.php" method="post">
+        <form action="../../controllers/Noticias/add.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="idTitulo">Título</label>
                 <input id="idTitulo" class="form-control" name="titulo" rows="" required></input>
@@ -23,7 +23,10 @@
                 <label for="idTexto">Texto</label>
                 <textarea id="idTexto" class="form-control" type="text" name="noticia" required></textarea>
             </div>
-
+            <div class="form-group">
+                <label for="idArquivo">Imagem: </label><br>
+                <input id="idArquivo" class="form-control-file" type="file" name="arquivo" required>
+            </div>
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>
         </form>
