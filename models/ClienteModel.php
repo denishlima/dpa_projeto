@@ -42,6 +42,7 @@ class ClienteModel
         $cliente->setEmail($obj->email);
         $cliente->setDataNascimento($obj->dataNascimento);
         $cliente->setSexo($obj->sexo);
+        $cliente->setArquivo($obj->arquivo);
         // retorna dados 
         return $cliente;
     }
@@ -75,6 +76,17 @@ class ClienteModel
         return $this->db->executeSQL($sql);
     }
 
+    public function edit_file($cliente)
+    {
+        // pega dados do objeto 
+        $id = $cliente->getId();
+        $arquivo = $cliente->getArquivo();
+        // Cria string SQL 
+        $sql = "Update $this->tabela set arquivo = '$arquivo' where id = $id";
+        // Executa SQL e retorna dados 
+        return $this->db->executeSQL($sql);
+    }
+
     public function del($cliente)
     {
         // pega dados do objeto 
@@ -98,14 +110,29 @@ class ClienteModel
             $cliente->setEmail($obj->email);
             $cliente->setDataNascimento($obj->dataNascimento);
             $cliente->setSexo($obj->sexo);
+            $cliente->setArquivo($obj->arquivo);
             $lista[] = $cliente;
         }
         return $lista;
     }
 
+    public function insertId() {
+        // Cria string SQL
+        $sql = "select max(id) as id from $this->tabela";
+        // Executa SQL e retorna dados
+        $rs = $this->db->executeSQL($sql);
+        // retorna último ID inserido na tabela
+        // Converte dados em obj 
+        $obj = $rs->fetch_object();
+        $cliente = new Cliente();
+        $cliente->setId($obj->id);
+        return $cliente;
+    }
+
     private function criarTabela() {
+        $sql = array();
         // Código sql para criação da tabela
-        $sql = "
+        $sql[] = "
                 CREATE TABLE IF NOT EXISTS clientes (
                 id int(11) NOT NULL AUTO_INCREMENT,
                 nome varchar(255) COLLATE utf8_bin NOT NULL,
@@ -116,7 +143,10 @@ class ClienteModel
                 PRIMARY KEY (id)
                 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
                 ";
+         $sql[] = "ALTER TABLE clientes ADD COLUMN IF NOT EXISTS arquivo VARCHAR(40) null;";
         // Executa código no banco de dados
-        return $this->db->executeSQL($sql);
+        foreach($sql as $consulta) {
+            $this->db->executeSQL($consulta);
+        }
     }
 }

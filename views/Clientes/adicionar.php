@@ -9,7 +9,7 @@
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Clientes</h2>
-        <form action="../../controllers/Clientes/add.php" method="post" >
+        <form action="../../controllers/Clientes/add.php" method="post"  enctype="multipart/form-data">
 
             <div class="form-group">
                 <div>
@@ -44,7 +44,10 @@
                         </label>
                     </div>
                 </div>
-
+                <div class="form-group">
+                <label for="idArquivo">Imagem: </label><br>
+                <input id="idArquivo" class="form-control-file" type="file" name="arquivo">
+                </div>
 
             </div>
             <br>
