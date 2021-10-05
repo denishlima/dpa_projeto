@@ -21,8 +21,7 @@ class ProdutoModel
                 ORDER BY p.produto";
         // Executa código SQL 
         $rs = $this->db->executeSQL($sql);
-        // Converte dados em obj
-        if($rs == false) return [];
+        // Converte dados em obj 
         $dados = $this->converteEmObj($rs);
         // retorna dados 
         return $dados;
@@ -156,7 +155,6 @@ class ProdutoModel
         // Executa código no banco de dados
         foreach($sql as $consulta) {
             $this->db->executeSQL($consulta);
-            echo "Rodou";
         }
     }
 

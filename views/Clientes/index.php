@@ -22,6 +22,7 @@ $lista = $ClienteModel->listar();
                 <th width="50%">Email</th>
                 <th width="50%">Data De Nascimento</th>
                 <th width="50%">Sexo</th>
+                <th width="50%">Foto</th>
                 <th width="30%">Opções</th>
             </tr>
             <?php foreach ($lista as $cat) { ?>
@@ -33,6 +34,7 @@ $lista = $ClienteModel->listar();
                     <td><?php echo $cat->getEmail(); ?></td>
                     <td><?php echo $cat->getDataNascimento(); ?></td>
                     <td><?php echo $cat->getSexo()? "Masculino": "Feminino"; ?></td>
+                    <td><img src="../../uploads/Clientes/<?php echo $cat->getArquivo(); ?>" alt="" width="150px"></td>
                     <td>
                         <a class="btn btn-warning btn-sm" href="editar.php?id=<?php echo $cat->getId(); ?>">Editar</a>
                         <a class="btn btn-danger btn-sm" href="#" onclick="excluir(<?php echo $cat->getId(); ?>)">Excluir</a>

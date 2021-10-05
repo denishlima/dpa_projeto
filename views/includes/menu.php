@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" style="margin-left: 60px; margin-right: 20px;" href="#">XYZ</a>
+        <a class="navbar-brand" href="#">System XYZ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,15 +27,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../Noticias/">Notícias</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Videos/">Vídeos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Administradores/">Administrador</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="sair.php">Sair</a>
-                </li>
                 <!--
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,6 +41,9 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>-->
+                <li class="nav-item">
+                    <a href="sair.php" class="nav-link">Sair</a>
+                </li>
             </ul>
             <!--
                 <form class="d-flex">

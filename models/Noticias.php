@@ -8,6 +8,7 @@ class Noticias
     public $data;
     public $hora;
     public $texto;
+    public $arquivo;
 
     /**
      * Get the value of id
@@ -145,6 +146,26 @@ class Noticias
     public function setTexto($texto)
     {
         $this->texto = $texto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of arquivo
+     */
+    public function getArquivo()
+    {
+        return $this->arquivo;
+    }
+
+    /**
+     * Set the value of arquivo
+     *
+     * @return  self
+     */
+    public function setArquivo($arquivo)
+    {
+        $this->arquivo = $arquivo;
 
         return $this;
     }
