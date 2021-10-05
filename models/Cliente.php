@@ -7,7 +7,7 @@ class Cliente
     public $email;
     public $dataNascimento;
     public $sexo;
-    public $arquivo;
+    
 
     /**
      * Get the value of sexo
@@ -125,26 +125,6 @@ class Cliente
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of arquivo
-     */ 
-    public function getArquivo()
-    {
-        return $this->arquivo;
-    }
-
-    /**
-     * Set the value of arquivo
-     *
-     * @return  self
-     */ 
-    public function setArquivo($arquivo)
-    {
-        $this->arquivo = $arquivo;
 
         return $this;
     }

@@ -25,7 +25,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Clientes - Editar</h2>
-        <form action="../../controllers/Clientes/edit.php" method="post"  enctype="multipart/form-data">
+        <form action="../../controllers/Clientes/edit.php" method="post">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>">
             <div class="form-group">
                 <div>
@@ -59,14 +59,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         Feminino
                         </label>
                     </div>
-                </div>
-                <div class="form-group">
-                <label for="idArquivo">Foto atual: </label><br>
-                <img src="../../uploads/Clientes/<?php echo $obj->getArquivo(); ?>" alt="" width="150px">
-                </div>
-                <div class="form-group">
-                <label for="idArquivo">Foto: </label><br>
-                <input id="idArquivo" class="form-control-file" type="file" name="arquivo">
                 </div>
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>

@@ -24,7 +24,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Lista - Editar</h2>
-        <form action="../../controllers/Noticias/edit.php" method="post" enctype="multipart/form-data">
+        <form action="../../controllers/Noticias/edit.php" method="post">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>"></input>
             <div class="form-group">
                 <label for="idTitulo">Titulo</label>
@@ -39,14 +39,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <label for="idTexto">Texto</label>
                 <input id="idTexto" class="form-control" type="text" name="noticia" value="<?php echo $obj->getTexto(); ?>" rrequired></input>
             </div>
-            <div class="form-group">
-                <label for="idArquivo">Imagem atual: </label><br>
-                <img src="../../uploads/Noticias/<?php echo $obj->getArquivo(); ?>" alt="" width="150px">
-            </div>
-            <div class="form-group">
-                <label for="idArquivo">Imagem: </label><br>
-                <input id="idArquivo" class="form-control-file" type="file" name="arquivo">
-            </div>
+
             <br>
             <button type="submit" class="btn btn-success">Gravar</button>
         </form>
