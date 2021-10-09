@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../../models/AdministradorModel.php";
 $administradorModel = new AdministradorModel();
 $lista = $administradorModel->listar();
@@ -13,6 +14,13 @@ $lista = $administradorModel->listar();
 <body>
     <?php include "../includes/menu.php"; ?>
     <div class="container">
+
+    <?php if($_GET['result']) echo '<br>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+<strong>'. unserialize($_SESSION["administrador"])->getNome() .'!</strong> Login realizado com sucesso.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>'?>
+
         <h2>Administradores(as)</h2>
         <table class="table">
             <tr>

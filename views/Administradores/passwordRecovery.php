@@ -28,7 +28,7 @@
                 </div>
             </div>
         <br>
-        <button type="submit" class="btn btn-success" onclick="alert('Foi enviado um email para a recuperação de senha!')">Gravar</button>
+        <button type="submit" class="btn btn-success" onclick="alert('Foi enviado um email para a recuperação de senha!')">Continuar</button>
         </form>
     </div>
     <?php include "../includes/js.php"; ?>

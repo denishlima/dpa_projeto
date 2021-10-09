@@ -22,6 +22,17 @@ class AdministradorModel
         return $dados;
     }
 
+    public function login($administrador){
+        $email = $administrador->getEmail();
+        $senha = md5($administrador->getSenha());
+        
+        $sql = "SELECT * FROM $this->tabela WHERE email = 
+        '$email' AND senha = '$senha'";
+        $rs = $this->db->executeSQL($sql);
+        $dados = $this->converteEmObj($rs);
+        return $dados;
+    }
+
     /**
      * @var $administrador Administrador
      * */

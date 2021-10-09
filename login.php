@@ -21,6 +21,12 @@
     </div>
 </nav>
     <div class="container">
+        <?php if(!$_GET['result']) echo '<br>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<strong>Error!</strong> Email ou senha incorreta.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>'?>
+
         <h2>Login</h2>
         <form action="controllers/Administradores/login.php" method="post" >
             <div class="form-group">
@@ -34,7 +40,7 @@
                 </div>
             </div>
         <br>
-        <button type="submit" class="btn btn-success">Gravar</button>
+        <button type="submit" class="btn btn-success">Login</button>
         </form>
         <a href="views/Administradores/passwordRecovery.php">Esqueceu a senha?</a>
     </div>
