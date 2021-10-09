@@ -34,7 +34,7 @@
                     <a class="nav-link" href="../Administradores/">Administrador</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="sair.php">Sair</a>
+                    <a class="nav-link" href="../../controllers/Administradores/exit.php">Sair</a>
                 </li>
                 <!--
                     <li class="nav-item dropdown">

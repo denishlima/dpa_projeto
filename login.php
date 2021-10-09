@@ -21,11 +21,17 @@
     </div>
 </nav>
     <div class="container">
-        <?php if(!$_GET['result']) echo '<br>
+        <?php if(isset($_GET['result'])){if(!$_GET['result']) echo '<br>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
 <strong>Error!</strong> Email ou senha incorreta.
 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>'?>
+</div>';
+else echo '<br>
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+<strong>Logout</strong>.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';} 
+?>
 
         <h2>Login</h2>
         <form action="controllers/Administradores/login.php" method="post" >
