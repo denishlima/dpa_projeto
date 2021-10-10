@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['administrador'])) {
+    header("location: ../../login.php");
+    exit;
+}
 if (isset($_POST['nome']) && !empty($_POST['nome'])) {
     require_once "../../models/NewsletterModel.php";
     $Newsletter = new Newsletter();

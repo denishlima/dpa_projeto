@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['administrador'])) {
+    header("location: ../../login.php");
+    exit;
+}
 require_once "../../models/NoticiaModel.php";
 $NoticiaModel = new NoticiaModel();
 $lista = $NoticiaModel->listar();

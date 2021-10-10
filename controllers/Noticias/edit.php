@@ -1,5 +1,10 @@
 <?php
+session_start();
 
+if (!isset($_SESSION['administrador'])) {
+    header("location: ../../login.php");
+    exit;
+}
 if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
     require_once "../../models/NoticiaModel.php";
     $NoticiaModel = new NoticiaModel();

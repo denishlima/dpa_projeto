@@ -1,5 +1,10 @@
 <?php
+session_start();
 
+if (!isset($_SESSION['administrador'])) {
+    header("location: ../../login.php");
+    exit;
+}
 if (isset($_POST['produto']) && !empty($_POST['produto'])) {
     require_once "../../models/ProdutoModel.php";
     $ProdutoModel = new ProdutoModel();
@@ -14,12 +19,12 @@ if (isset($_POST['produto']) && !empty($_POST['produto'])) {
     if (!empty($_FILES['arquivo'])) {
         // Somente no adicionar, necessitamos do $id dos dados adicionados anteriormente.
         $produto = $ProdutoModel->insertId();
-    
+
         // Faz a requisição da classe de Upload
         require_once "../../models/Upload.php";
         // Cria uma instância da classe de Upload
         $Upload = new Upload();
-    
+
         //define as extensões permitidas para upload
         $Upload->setAllowedExtensions(array('png', 'jpg', 'jpeg'));
         //falamos aqui para a classe dar um nome aleatório para o nosso novo arquivo enviado (TRUE ou FALSE)
@@ -32,13 +37,11 @@ if (isset($_POST['produto']) && !empty($_POST['produto'])) {
         corretamente a variável $arquivo recebe o nome do arquivo que foi movido para a pasta */
         $arquivo = $Upload->uploadFile($_FILES['arquivo']);
         $produto->setArquivo($arquivo);
-    
+
         if ($arquivo != "") {
             $ProdutoModel->edit_file($produto);
         }
     }
-
-
 }
 
 header("location: ../../views/Produtos/");

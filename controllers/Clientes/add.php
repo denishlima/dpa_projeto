@@ -1,5 +1,10 @@
 <?php
+session_start();
 
+if (!isset($_SESSION['administrador'])) {
+    header("location: ../../login.php");
+    exit;
+}
 if (isset($_POST['nome']) && !empty($_POST['nome'])) {
     require_once "../../models/ClienteModel.php";
     $ClienteModel = new ClienteModel();
@@ -10,19 +15,19 @@ if (isset($_POST['nome']) && !empty($_POST['nome'])) {
     $cliente->setEmail($_POST['email']);
     $cliente->setDataNascimento($_POST['dataNascimento']);
     $cliente->setSexo($_POST['sexo']);
-    
+
     $rs = $ClienteModel->add($cliente);
 
     if (!empty($_FILES['arquivo'])) {
 
         // Somente no adicionar, necessitamos do $id dos dados adicionados anteriormente.
         $cliente = $ClienteModel->insertId();
-    
+
         // Faz a requisição da classe de Upload
         require_once "../../models/Upload.php";
         // Cria uma instância da classe de Upload
         $Upload = new Upload();
-    
+
         //define as extensões permitidas para upload
         $Upload->setAllowedExtensions(array('png', 'jpg', 'jpeg'));
         //falamos aqui para a classe dar um nome aleatório para o nosso novo arquivo enviado (TRUE ou FALSE)
@@ -35,7 +40,7 @@ if (isset($_POST['nome']) && !empty($_POST['nome'])) {
         corretamente a variável $arquivo recebe o nome do arquivo que foi movido para a pasta */
         $arquivo = $Upload->uploadFile($_FILES['arquivo']);
         $Cliente->setArquivo($arquivo);
-    
+
         if ($arquivo != "") {
             $ClienteModel->edit_file($Cliente);
         }
