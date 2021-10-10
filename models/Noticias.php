@@ -8,6 +8,7 @@ class Noticias
     public $data;
     public $hora;
     public $texto;
+    public $tipoNoticia;
     public $arquivo;
 
     /**
@@ -149,6 +150,22 @@ class Noticias
 
         return $this;
     }
+    public function getTipoNoticia()
+    {
+        return $this->tipoNoticia;
+    }
+
+    /**
+     * Set the value of tipoNoticia
+     *
+     * @return  self
+     */
+    public function setTipoNoticia($tipoNoticia)
+    {
+        $this->tipoNoticia = $tipoNoticia;
+
+        return $this;
+    }
 
     /**
      * Get the value of arquivo
@@ -169,4 +186,8 @@ class Noticias
 
         return $this;
     }
+
+    /**
+     * Get the value of tipoNoticia
+     */
 }

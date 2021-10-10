@@ -28,6 +28,9 @@
                     <a class="nav-link" href="../Noticias/">Notícias</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="../TipoNoticia/">Tipo de Notícias</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="../Videos/">Vídeos</a>
                 </li>
                 <li class="nav-item">

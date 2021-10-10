@@ -2,6 +2,11 @@
 require_once "../../models/NoticiaModel.php";
 $NoticiaModel = new NoticiaModel();
 $lista = $NoticiaModel->listar();
+
+
+require_once "../../models/TipoNoticiaModel.php";
+$tipoModel = new TipoNoticiaModel();
+$tipo = $tipoModel->listar();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,8 +21,9 @@ $lista = $NoticiaModel->listar();
         <h2>Notícias</h2>
         <table class="table">
             <tr>
-                <th width="10%">ID</th>
+                <th width="5%">ID</th>
                 <th width="10%">Titulo</th>
+                <th width="10%">Tipo Notícia</th>
                 <th width="10%">Sintese</th>
                 <th width="10%">Data</th>
                 <th width="10%">Hora</th>
@@ -29,15 +35,20 @@ $lista = $NoticiaModel->listar();
                 <tr>
                     <td><?php echo $cat->getId(); ?></td>
                     <td><?php echo $cat->getTitulo(); ?></td>
-                    <td><?php echo $cat->getSintese(); ?></td>
-                    <td><?php echo $cat->getData(); ?></td>
-                    <td><?php echo $cat->getHora(); ?></td>
-                    <td><?php echo $cat->getTexto(); ?></td>
+                    <?php foreach ($tipo as $t) {
+                        if ($cat->getTipoNoticia() == $t->getId()) { ?>
+                            <td><?php echo $t->getTipoNoticia();
+                            } ?></td>
+                        <?php } ?>
+                        <td><?php echo $cat->getSintese(); ?></td>
+                        <td><?php echo $cat->getData(); ?></td>
+                        <td><?php echo $cat->getHora(); ?></td>
+                        <td><?php echo $cat->getTexto(); ?></td>
 
-                    <td>
-                        <a class="btn btn-warning btn-sm" href="editar.php?id=<?php echo $cat->getId(); ?>">Editar</a>
-                        <a class="btn btn-danger btn-sm" href="#" onclick="excluir(<?php echo $cat->getId(); ?>)">Excluir</a>
-                    </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" href="editar.php?id=<?php echo $cat->getId(); ?>">Editar</a>
+                            <a class="btn btn-danger btn-sm" href="#" onclick="excluir(<?php echo $cat->getId(); ?>)">Excluir</a>
+                        </td>
                 </tr>
             <?php } ?>
         </table>

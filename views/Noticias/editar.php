@@ -8,6 +8,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $noticia = new Noticias();
     $noticia->setId($id);
     $obj = $NoticiaModel->listById($noticia);
+
+    require_once "../../models/TipoNoticiaModel.php";
+    $TipoNoticiaModel = new TipoNoticiaModel();
+    $lista = $TipoNoticiaModel->listar();
 } else {
     header("location: index.php");
     exit();
@@ -26,6 +30,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <h2>Lista - Editar</h2>
         <form action="../../controllers/Noticias/edit.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>"></input>
+            <div class="form-group">
+                <label for="idTipo">Tipo de Notícia:</label>
+                <select id="idTipo" class="form-control" name="tipo" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($lista as $t) { ?>
+                        <option value="<?php echo $t->getId(); ?>" <?php if ($t->getId() == $obj->getTipoNoticia()) echo "selected"; ?>> <?php echo $t->getTipoNoticia(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="idTitulo">Titulo</label>
                 <input id="idTitulo" class="form-control" name="titulo" rows="" value="<?php echo $obj->getTitulo(); ?>" required></input>

@@ -8,6 +8,7 @@ if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
     $Noticias->setTitulo($_POST['titulo']);
     $Noticias->setSintese($_POST['sintese']);
     $Noticias->setTexto($_POST['noticia']);
+    $Noticias->setTipoNoticia(($_POST['tipo']));
     $rs = $NoticiaModel->edit($Noticias);
 
     if (!empty($_FILES['arquivo'])) {

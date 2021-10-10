@@ -17,7 +17,9 @@ class NoticiaModel
     public function listar()
     {
         // Cria string SQL
-        $sql = "Select * from $this->tabela";
+        $sql = "SELECT n.*, t.tipo FROM $this->tabela n 
+                JOIN tipoNoticia t on n.tipoNoticia_id = t.id
+                order by n.id";
         // Executa código SQL
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj
@@ -43,6 +45,7 @@ class NoticiaModel
         $noticias->setHora($obj->hora);
         $noticias->setSintese($obj->sintese);
         $noticias->setTexto($obj->texto);
+        $noticias->setTipoNoticia($obj->tipoNoticia_id);
         $noticias->setArquivo($obj->arquivo);
         // retorna dados
         return $noticias;
@@ -53,14 +56,16 @@ class NoticiaModel
         // pega dados do objeto
         $titulo = $noticias->getTitulo();
         $sintese = $noticias->getSintese();
+        $tipo = $noticias->getTipoNoticia();
         // $data = $noticias->getData();
         // $hora = $noticias->getHora();
         $texto = $noticias->getTexto();
 
         // Cria string SQL
-        $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto) 
-                values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto');";
+        $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto, tipoNoticia_id) 
+                values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto', '$tipo');";
         // Executa SQL e retorna dados
+
         return $this->db->executeSQL($sql);
     }
 
@@ -72,11 +77,12 @@ class NoticiaModel
         $titulo = $noticias->getTitulo();
         $sintese = $noticias->getSintese();
         $texto = $noticias->getTexto();
-
+        $tipo = $noticias->getTipoNoticia();
         // Cria string SQL
         // $sql = "Update $this->tabela set nome = '$nome' where id = $id";
         $sql = "UPDATE $this->tabela set 
-                titulo = '$titulo', sintese = '$sintese', texto = '$texto' WHERE id = $id";
+                titulo = '$titulo', sintese = '$sintese', texto = '$texto', tipoNoticia_id =  '$tipo'
+                 WHERE id = $id";
         // Executa SQL e retorna dados
 
         return $this->db->executeSQL($sql);
@@ -117,7 +123,7 @@ class NoticiaModel
             $noticias->setData($obj->data);
             $noticias->setHora($obj->hora);
             $noticias->setSintese($obj->sintese);
-
+            $noticias->setTipoNoticia(($obj->tipoNoticia_id));
             $noticias->setTexto($obj->texto);
 
             $lista[] = $noticias;
@@ -153,6 +159,12 @@ class NoticiaModel
           ) 
         ";
         $sql[] = "ALTER TABLE $this->tabela ADD COLUMN IF NOT EXISTS arquivo VARCHAR(40) null;";
+        $sql[] = "ALTER TABLE  Noticias ADD COLUMN IF NOT EXISTS tipoNoticia_id int(40) null,
+                    ADD CONSTRAINT FK_Noticia_Tipo
+                    FOREIGN KEY (tipoNoticia_id) REFERENCES tipoNoticia(id)
+                    ON DELETE SET NULL
+                    ON UPDATE NO ACTION
+        ";
         // Executa código no banco de dados
         foreach ($sql as $consulta) {
             $this->db->executeSQL($consulta);

@@ -1,3 +1,8 @@
+<?php
+require_once "../../models/TipoNoticiaModel.php";
+$TipoNoticiaModel = new TipoNoticiaModel();
+$lista = $TipoNoticiaModel->listar();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,6 +15,15 @@
     <div class="container">
         <h2>Notícias</h2>
         <form action="../../controllers/Noticias/add.php" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="idCategoria">Categoria:</label>
+                <select id="idCategoria" class="form-control" name="tipo" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($lista as $cat) { ?>
+                        <option value="<?php echo $cat->getId(); ?>"><?php echo $cat->getTipoNoticia(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="idTitulo">Título</label>
                 <input id="idTitulo" class="form-control" name="titulo" rows="" required></input>

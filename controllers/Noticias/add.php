@@ -9,6 +9,7 @@ if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
     $Noticias->setData($_POST['data']);
     $Noticias->setHora($_POST['hora']);
     $Noticias->setTexto($_POST['noticia']);
+    $Noticias->setTipoNoticia(($_POST['tipo']));
     $rs = $NoticiaModel->add($Noticias);
 
     if (!empty($_FILES['arquivo'])) {
