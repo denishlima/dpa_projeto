@@ -1,7 +1,5 @@
 <?php
-session_start();
 require_once "../../models/AdministradorModel.php";
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

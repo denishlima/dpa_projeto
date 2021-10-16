@@ -32,6 +32,26 @@ class AdministradorModel
         $dados = $this->converteEmObj($rs);
         return $dados;
     }
+    
+    // Altera senha com base no codigo de recuperação
+    public function newPass($administrador){
+        $recoveryCode = $administrador->getRecoveryCode();
+        $senha = md5($administrador->getSenha());
+
+        $sql = "UPDATE $this->tabela SET senha = '$senha' WHERE recoveryCode = '$recoveryCode'";
+        return $this->db->executeSQL($sql);
+    }
+
+    //Gera o codigo de recureparação quando solicitado com base no endereço de email
+    public function recoveryCode($administrador){
+        $email = $administrador->getEmail();
+        $bytes = random_bytes(20);
+        $recoveryCode = bin2hex($bytes);
+
+        $sql = "UPDATE $this->tabela SET recoveryCode = '$recoveryCode' WHERE email = '$email'";
+        $this->db->executeSQL($sql);
+        return $recoveryCode;
+    }
 
     /**
      * @var $administrador Administrador
@@ -97,7 +117,9 @@ class AdministradorModel
     }
 
     public function criarTabela() {
-        $sql = "
+        $sql = array();
+        // Executa código no banco de dados
+        $sql[] = "
                 CREATE TABLE IF NOT EXISTS $this->tabela (
                 id int(11) NOT NULL AUTO_INCREMENT,
                 nome varchar(100) COLLATE utf8_bin NOT NULL,
@@ -106,7 +128,10 @@ class AdministradorModel
                 PRIMARY KEY (id)
                 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
                 ";
-        return $this->db->executeSQL($sql);
+        $sql[] = "ALTER TABLE $this->tabela ADD COLUMN IF NOT EXISTS recoveryCode TEXT null;";
+        foreach($sql as $consulta) {
+            $this->db->executeSQL($consulta);
+        }
     }
 
 }

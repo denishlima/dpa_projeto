@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -22,15 +24,12 @@
 </nav>
     <div class="container">
         <h2>Recuperar senha</h2>
-        <form action="../../controllers/Administradores/recovery.php" method="post">
+        <form action="../../controllers/Administradores/newPass.php" method="post">
             <div class="form-group">
-            <div>
-                    <label for="idEmail">E-mail</label>
-                    <input id="idEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" type="email" name="email" placeholder="E-mail" required>
-                </div>
+                <input type="hidden" id="idCode" name="recoveryCode" value="<?php if(isset($_GET['recoveryCode'])){ echo !$_GET['recoveryCode'] ? "": $_GET['recoveryCode'];}?>">
                 <div>
-                    <label for="idConfirm">Confirme seu E-mail</label>
-                    <input id="idConfirm" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" type="email" name="confirmation" placeholder="E-mail" required>
+                    <label for="idSenha">Senha</label>
+                    <input id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" type="password" name="senha" placeholder="Senha" title="Deve conter pelo menos um número e uma letra maiúscula e minúscula e pelo menos 8 ou mais caracteres" required>
                 </div>
             </div>
         <br>

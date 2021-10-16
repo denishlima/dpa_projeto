@@ -1,3 +1,17 @@
+<?php 
+    require_once "models/AdministradorModel.php";
+    $administradorModel = new AdministradorModel();
+    $lista = $administradorModel->listar();
+    if(sizeof($lista) == 0){
+        
+        $administrador = new Administrador();
+        $administrador->setNome("admin");
+        $administrador->setEmail("admin@email.com");
+        $administrador->setSenha("Admin123");
+    
+        $rs = $administradorModel->add($administrador);
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 

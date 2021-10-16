@@ -7,6 +7,23 @@ class Administrador {
     private $nome;
     private $email;
     private $senha;
+    private $recoveryCode;
+
+    /**
+     * @return mixed
+     */
+    public function getRecoveryCode()
+    {
+        return $this->recoveryCode;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setRecoveryCode($recoveryCode)
+    {
+        $this->recoveryCode = $recoveryCode;
+    }
 
     /**
      * @return mixed
