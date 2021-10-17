@@ -1,45 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" style="margin-left: 60px; margin-right: 20px;" href="#">XYZ</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../home/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Clientes/">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Podcasts/">Podcasts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Categorias/">Categorias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Produtos/">Produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Newsletter/">Newsletter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Noticias/">Notícias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../TipoNoticia/">Tipo de Notícias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Videos/">Vídeos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Administradores/">Administrador</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../../controllers/Administradores/exit.php">Sair</a>
-                </li>
-                <!--
+<div class="wrapper" active>
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>SYSTEM XYZ</h3>
+        </div>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="../home/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Clientes/">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Podcasts/">Podcasts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Categorias/">Categorias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Produtos/">Produtos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Newsletter/">Newsletter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Noticias/">Notícias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../TipoNoticia/">Tipo de Notícias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Videos/">Vídeos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Administradores/">Administrador</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../controllers/Administradores/exit.php">Sair</a>
+            </li>
+            <!--
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown
@@ -53,12 +53,38 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>-->
-            </ul>
-            <!--
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>-->
-        </div>
+        </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav class=" btn-nav ">
+            <div class=" container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+
+                </button>
+
+        </nav>
+
+
     </div>
-</nav>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
+    $('#sidebarCollapse').on('click', function() {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+});
+</script>
