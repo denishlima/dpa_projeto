@@ -7,6 +7,7 @@ class AdministradorModel
 {
     protected $db;
     protected $tabela = "administradores";
+    protected $logTable = "log_acesso";
 
     public function __construct()
     {
@@ -26,10 +27,17 @@ class AdministradorModel
         $email = $administrador->getEmail();
         $senha = md5($administrador->getSenha());
         
-        $sql = "SELECT * FROM $this->tabela WHERE email = 
-        '$email' AND senha = '$senha'";
+        $sql = "SELECT * FROM $this->tabela WHERE email = '$email' AND senha = '$senha'";
         $rs = $this->db->executeSQL($sql);
         $dados = $this->converteEmObj($rs);
+        if(!empty($dados)) {
+            $id = $dados[0]->getId();
+            $ip = $_SERVER['REMOTE_ADDR'] == '::1' ? 'localhost' : $_SERVER['REMOTE_ADDR'];
+            $date = date('Y-m-d');
+            $hora = (new DateTime('now', new DateTimeZone('America/Sao_Paulo')))->format('H:i:s');
+            $sql = "INSERT INTO $this->logTable (admin_id, data, hora, ip) VALUES('$id', '$date', '$hora', '$ip')";
+            $this->db->executeSQL($sql);
+        }
         return $dados;
     }
     
@@ -129,6 +137,22 @@ class AdministradorModel
                 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
                 ";
         $sql[] = "ALTER TABLE $this->tabela ADD COLUMN IF NOT EXISTS recoveryCode TEXT null;";
+
+        $sql[] = "CREATE TABLE IF NOT EXISTS $this->logTable(
+          id INT NOT NULL AUTO_INCREMENT,
+          admin_id INT(11) NOT NULL,
+          data DATE NOT NULL,
+          hora TIME NOT NULL,
+          ip TEXT NOT NULL,
+          PRIMARY KEY (id),
+          INDEX fk_log_admin_idx (admin_id ASC),
+          CONSTRAINT fk_log_admin
+            FOREIGN KEY (admin_id)
+            REFERENCES $this->tabela(id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE)
+        ENGINE = InnoDB";
+
         foreach($sql as $consulta) {
             $this->db->executeSQL($consulta);
         }

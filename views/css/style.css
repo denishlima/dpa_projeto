@@ -16,15 +16,12 @@ body {
         margin-top: 50px;
     }
 
-}  
-
-
+}
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
 }
-
 
 a,
 a:hover,
@@ -191,6 +188,46 @@ a.article:hover {
    }
 
 
-   .nav-link{
-       color: white;
-   }
+.nav-link{
+   color: white;
+}
+.login-body {
+    background-color: #f4f4f4 !important;
+    width: 100vw;
+}
+.login-body .navbar {
+    margin-bottom: 0px !important;
+}
+.login-container {
+    width: 100vw;
+    height: calc(100vh - 94px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-box {
+    background-color: white;
+    width: 30em;
+    margin: auto;
+    padding: 25px 50px;
+    border-radius: .5em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px 0px;
+}
+.ln-title {
+    text-transform: uppercase;
+    padding: 15px 25px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+.login-btn {
+    margin-top: 18px;
+    padding: 10px 25px;
+    width: 100%;
+    text-transform: uppercase;
+}
+.ln-field {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px 25px;
+}
