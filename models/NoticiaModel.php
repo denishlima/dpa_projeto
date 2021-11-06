@@ -34,8 +34,7 @@ class NoticiaModel
         // Cria string SQL
         $sql = "SELECT n.*, GROUP_CONCAT(tn.tipo) categoria 
                 FROM noticias n, tiponoticia tn, noticia_tipo nt 
-                WHERE n.id = $id AND tn.id = nt.tipo_id 
-                ORDER BY n.titulo;";
+                WHERE n.id = $id AND tn.id = nt.tipo_id GROUP BY n.id;";
         // Executa código SQL
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj
