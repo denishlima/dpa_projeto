@@ -11,24 +11,17 @@ $lista = $TipoNoticiaModel->listar();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <?php include "../includes/head.php"; ?>
 </head>
-
 <body>
     <?php include "../includes/menu.php"; ?>
     <div class="container">
         <h2>Notícias</h2>
         <form action="../../controllers/Noticias/add.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="idCategoria">Categoria:</label>
-                <select id="idCategoria" class="form-control" name="tipo" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($lista as $cat) { ?>
-                        <option value="<?php echo $cat->getId(); ?>"><?php echo $cat->getTipoNoticia(); ?></option>
-                    <?php } ?>
-                </select>
+                <label for="example-post">Categoria:</label><br>
+                <p id="categories" class="form-control"></p>
             </div>
             <div class="form-group">
                 <label for="idTitulo">Título</label>
@@ -52,6 +45,16 @@ $lista = $TipoNoticiaModel->listar();
         </form>
     </div>
     <?php include "../includes/js.php"; ?>
+    <script>
+        const categories = <?php echo $TipoNoticiaModel->toJsonSelect($lista); ?>;
+        VirtualSelect.init({
+            ele: '#categories',
+            options: categories,
+            name: 'categories',
+            search: true,
+            multiple: true,
+        });
+    </script>
 </body>
 
 </html>

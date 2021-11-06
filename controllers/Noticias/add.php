@@ -5,16 +5,14 @@ if (!isset($_SESSION['administrador'])) {
     header("location: ../../login.php");
     exit;
 }
-if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
+if (isset($_POST['noticia']) && !empty($_POST['noticia'] && !empty($_POST['categories']))) {
     require_once "../../models/NoticiaModel.php";
     $NoticiaModel = new NoticiaModel();
     $Noticias = new Noticias();
     $Noticias->setTitulo($_POST['titulo']);
     $Noticias->setSintese($_POST['sintese']);
-    $Noticias->setData($_POST['data']);
-    $Noticias->setHora($_POST['hora']);
     $Noticias->setTexto($_POST['noticia']);
-    $Noticias->setTipoNoticia(($_POST['tipo']));
+    $Noticias->setTipoNoticia($_POST['categories']);
     $rs = $NoticiaModel->add($Noticias);
 
     if (!empty($_FILES['arquivo'])) {
@@ -27,7 +25,7 @@ if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
         $Upload = new Upload();
 
         //define as extensões permitidas para upload
-        $Upload->setAllowedExtensions(array('png', 'jpg', 'jpeg'));
+        $Upload->setAllowedExtensions(['png', 'jpg', 'jpeg']);
         //falamos aqui para a classe dar um nome aleatório para o nosso novo arquivo enviado (TRUE ou FALSE)
         $Upload->setRandomName(TRUE);
         //definimos o tamanho máximo que o arquivo pode ser enviado. Aqui definimos 5mb

@@ -30,7 +30,7 @@ class VideoModel
         $id = $video->getId();
         $sql = "SELECT * FROM $this->tabela WHERE id = $id";
         $rs = $this->db->executeSQL($sql);
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $result = new Video();
         $result->setId($obj->id);
         $result->setTitulo($obj->titulo);
@@ -70,7 +70,7 @@ class VideoModel
     public function converteEmObj($rs)
     {
         $lista = [];
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $video = new Video();
             $video->setId($obj->id);
             $video->setTitulo($obj->titulo);

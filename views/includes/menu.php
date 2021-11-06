@@ -4,7 +4,6 @@
         <div class="sidebar-header">
             <h3>SYSTEM XYZ</h3>
         </div>
-
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="../home/">Home</a>
@@ -54,37 +53,5 @@
                         </ul>
                     </li>-->
         </ul>
-
     </nav>
-
-    <!-- Page Content  -->
-    <div id="content">
-
-        <nav class=" btn-nav ">
-            <div class=" container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-
-                </button>
-
-        </nav>
-
-
-    </div>
 </div>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-    });
-
-    $('#sidebarCollapse').on('click', function() {
-        $('#sidebar, #content').toggleClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
-});
-</script>

@@ -34,7 +34,7 @@ class PodcastModel
         // Executa código SQL 
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj 
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $podcast = new podcast();
         $podcast->setId($obj->id);
         $podcast->setTitulo($obj->titulo);
@@ -81,7 +81,7 @@ class PodcastModel
         // Cria vetor 
         $lista = array();
         // Converte resposta da consulta em um objeto e armazena em uma lista 
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $podcast = new podcast();
             $podcast->setId($obj->id);
             $podcast->setTitulo($obj->titulo);

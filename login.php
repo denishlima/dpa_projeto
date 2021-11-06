@@ -2,9 +2,6 @@
 require_once "models/AdministradorModel.php";
 $administradorModel = new AdministradorModel();
 $lista = $administradorModel->listar();
-if(isset($_GET['result']) && $_GET['result'] == 0) {
-
-}
 if (sizeof($lista) == 0) {
 
     $administrador = new Administrador();

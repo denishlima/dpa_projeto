@@ -5,16 +5,12 @@ $lista = $NoticiaModel->listar();
 
 
 require_once "../../models/TipoNoticiaModel.php";
-$tipoModel = new TipoNoticiaModel();
-$tipo = $tipoModel->listar();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <?php include "../includes/head.php"; ?>
 </head>
-
 <body>
     <?php include "../includes/menu.php"; ?>
     <div class="container">
@@ -35,20 +31,15 @@ $tipo = $tipoModel->listar();
                 <tr>
                     <td><?php echo $cat->getId(); ?></td>
                     <td><?php echo $cat->getTitulo(); ?></td>
-                    <?php foreach ($tipo as $t) {
-                        if ($cat->getTipoNoticia() == $t->getId()) { ?>
-                            <td><?php echo $t->getTipoNoticia();
-                            } ?></td>
-                        <?php } ?>
-                        <td><?php echo $cat->getSintese(); ?></td>
-                        <td><?php echo $cat->getData(); ?></td>
-                        <td><?php echo $cat->getHora(); ?></td>
-                        <td><?php echo $cat->getTexto(); ?></td>
-
-                        <td>
-                            <a class="btn btn-warning btn-sm" href="editar.php?id=<?php echo $cat->getId(); ?>">Editar</a>
-                            <a class="btn btn-danger btn-sm" href="#" onclick="excluir(<?php echo $cat->getId(); ?>)">Excluir</a>
-                        </td>
+                    <td><?php echo $cat->getTipoNoticia() ?></td>
+                    <td><?php echo $cat->getSintese(); ?></td>
+                    <td><?php echo $cat->getData(); ?></td>
+                    <td><?php echo $cat->getHora(); ?></td>
+                    <td><?php echo $cat->getTexto(); ?></td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="editar.php?id=<?php echo $cat->getId(); ?>">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="#" onclick="excluir(<?php echo $cat->getId(); ?>)">Excluir</a>
+                    </td>
                 </tr>
             <?php } ?>
         </table>

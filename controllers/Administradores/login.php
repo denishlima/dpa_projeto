@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (isset($_POST['email']) && !empty($_POST['email'])) {
     require_once "../../models/AdministradorModel.php";
     $administradorModel = new AdministradorModel();
@@ -11,8 +13,10 @@ if (isset($_POST['email']) && !empty($_POST['email'])) {
     if (empty($rs)) {
         header("location: ../../login.php?result=0");
     } else {
-        session_start();
-        $_SESSION["administrador"] = serialize($rs[0]);
+        if(!isset($_SESSION["administrador"])) {
+            session_start();
+            $_SESSION["administrador"] = serialize($rs[0]);
+        }
         header("location: ../../views/home/index.php?result=1");
     }
 }

@@ -36,7 +36,7 @@ class ProdutoModel
         // Executa código SQL 
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj 
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $produto = new Produto();
         $produto->setId($obj->id);
         $produto->setProduto($obj->produto);
@@ -106,7 +106,7 @@ class ProdutoModel
         // Cria vetor 
         $lista = array();
         // Converte resposta da consulta em um objeto e armazena em uma lista 
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $produto = new Produto();
             $produto->setId($obj->id);
             $produto->setProduto($obj->produto);
@@ -126,7 +126,7 @@ class ProdutoModel
         $rs = $this->db->executeSQL($sql);
         // retorna último ID inserido na tabela
         // Converte dados em obj 
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $produto = new Produto();
         $produto->setId($obj->id);
         return $produto;

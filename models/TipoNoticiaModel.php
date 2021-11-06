@@ -35,7 +35,7 @@ class TipoNoticiaModel
         // Executa código SQL
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $tipoNoticia = new TipoNoticia();
         $tipoNoticia->setId($obj->id);
         $tipoNoticia->setTipoNoticia($obj->tipo);
@@ -85,7 +85,7 @@ class TipoNoticiaModel
         // Cria vetor
         $lista = array();
         // Converte resposta da consulta em um objeto e armazena em uma lista
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $tipoNoticia = new TipoNoticia();
             $tipoNoticia->setId($obj->id);
             $tipoNoticia->setTipoNoticia($obj->tipo);
@@ -96,16 +96,50 @@ class TipoNoticiaModel
         return $lista;
     }
 
-
+    /*** @param $target TipoNoticia[]
+     * @return string */
+    public function toJsonSelect($target) {
+        $array = [];
+        foreach($target as $index => $tipoNoticia) {
+            $array[] = [
+                "label" => $tipoNoticia->getTipoNoticia(),
+                "value" => $tipoNoticia->getId()
+            ];
+        }
+        return json_encode($array);
+    }
     private function criarTabela()
     {
-        $sql = "
-        CREATE TABLE IF NOT EXISTS tipoNoticia (
-            id int(11) NOT NULL AUTO_INCREMENT, 
-            tipo VARCHAR(45), 
-            PRIMARY KEY (id)
-        )
+        $sql = [
+            "
+            CREATE TABLE IF NOT EXISTS tipoNoticia (
+                id int(11) NOT NULL AUTO_INCREMENT, 
+                tipo VARCHAR(45), 
+                PRIMARY KEY (id)
+            )
+            "
+        ];
+        $sql[] = "
+            CREATE TABLE IF NOT EXISTS noticia_tipo (
+              id INT(11) NOT NULL AUTO_INCREMENT,
+              noticia_id INT(11) NOT NULL,
+              tipo_id INT(11) NOT NULL,
+              PRIMARY KEY (`id`),
+              INDEX fk_tipo_noticia_idx (noticia_id ASC),
+              INDEX fk_noticia_tipo_idx (`tipo_id` ASC),
+              CONSTRAINT fk_noticia_tipo
+                FOREIGN KEY (tipo_id)
+                REFERENCES tiponoticia (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+              CONSTRAINT fk_tipo_noticia
+                FOREIGN KEY (noticia_id)
+                REFERENCES noticias (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE)
         ";
-        $this->db->executeSQL($sql);
+        foreach($sql as $consulta) {
+            $this->db->executeSQL($consulta);
+        }
     }
 }

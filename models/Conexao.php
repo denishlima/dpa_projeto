@@ -6,6 +6,7 @@ class Conexao
     private $user;
     private $pass;
     private $nomeBanco;
+    /*** @var mysqli */
     private $banco;
 
     function __construct($servidor = "localhost", $user = "root", $pass = "", $nomeBanco = "webservice")
@@ -35,16 +36,20 @@ class Conexao
         $this->banco->close();
     }
 
-    public function executeSQL($sql)
+    public function executeSQL($sql, $get_last_id = false)
     {
         // Inicia conexão com banco de dados
         $this->conetar();
         // Executa String SQL e armazena resposta na variável $rs
         $rs = $this->banco->query($sql);
+        $rowId = mysqli_insert_id($this->banco);
         // Desconeta do banco de dados
         $this->desconectar();
         // Retorna a responta da consulta para o controlador
-        return $rs;
+        return $get_last_id ? [
+            "id" => $rowId,
+            "result" => $rs
+        ] : $rs;
     }
 
     /**

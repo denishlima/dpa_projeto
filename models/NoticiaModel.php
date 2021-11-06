@@ -13,13 +13,12 @@ class NoticiaModel
         $this->db = new Conexao();
         $this->criarTabela();
     }
-
     public function listar()
     {
         // Cria string SQL
-        $sql = "SELECT n.*, t.tipo FROM $this->tabela n 
-                JOIN tipoNoticia t on n.tipoNoticia_id = t.id
-                order by n.id";
+        $sql = "SELECT n.*, GROUP_CONCAT(tn.tipo) categoria
+                FROM noticias n, tiponoticia tn, noticia_tipo nt
+                WHERE n.id = nt.noticia_id AND tn.id = nt.tipo_id GROUP BY n.id;";
         // Executa código SQL
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj
@@ -33,11 +32,14 @@ class NoticiaModel
         // pega dados do objeto
         $id = $noticia->getId();
         // Cria string SQL
-        $sql = "Select * from $this->tabela where id = '$id'";
+        $sql = "SELECT n.*, GROUP_CONCAT(tn.tipo) categoria 
+                FROM noticias n, tiponoticia tn, noticia_tipo nt 
+                WHERE n.id = $id AND tn.id = nt.tipo_id 
+                ORDER BY n.titulo;";
         // Executa código SQL
         $rs = $this->db->executeSQL($sql);
         // Converte dados em obj
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $noticias = new Noticias();
         $noticias->setId($obj->id);
         $noticias->setTitulo($obj->titulo);
@@ -45,28 +47,37 @@ class NoticiaModel
         $noticias->setHora($obj->hora);
         $noticias->setSintese($obj->sintese);
         $noticias->setTexto($obj->texto);
-        $noticias->setTipoNoticia($obj->tipoNoticia_id);
+        $noticias->setTipoNoticia($obj->categoria);
         $noticias->setArquivo($obj->arquivo);
         // retorna dados
         return $noticias;
     }
-
+    /**
+    * @param $noticias Noticias
+     */
     public function add($noticias)
     {
         // pega dados do objeto
         $titulo = $noticias->getTitulo();
         $sintese = $noticias->getSintese();
-        $tipo = $noticias->getTipoNoticia();
         // $data = $noticias->getData();
         // $hora = $noticias->getHora();
         $texto = $noticias->getTexto();
 
         // Cria string SQL
-        $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto, tipoNoticia_id) 
-                values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto', '$tipo');";
+        $sql = "INSERT INTO $this->tabela (titulo, data, hora, sintese, texto) 
+                values ('$titulo', CURDATE(), CURTIME(),  '$sintese',  '$texto');";
         // Executa SQL e retorna dados
-
-        return $this->db->executeSQL($sql);
+        $result = $this->db->executeSQL($sql, true);
+        $rowId = $result['id'];
+        $categories = $noticias->getTipoNoticiaList();
+        $sqlCategories = "INSERT INTO noticia_tipo(noticia_id, tipo_id) VALUES(%noticia, %categoria)";
+        foreach($categories as $index => $id) {
+            $query = str_replace("%noticia", $rowId, $sqlCategories);
+            $query = str_replace("%categoria", (int) $id, $query);
+            $this->db->executeSQL($query);
+        }
+        return $result['result'];
     }
 
     public function edit($noticias)
@@ -81,10 +92,18 @@ class NoticiaModel
         // Cria string SQL
         // $sql = "Update $this->tabela set nome = '$nome' where id = $id";
         $sql = "UPDATE $this->tabela set 
-                titulo = '$titulo', sintese = '$sintese', texto = '$texto', tipoNoticia_id =  '$tipo'
+                titulo = '$titulo', sintese = '$sintese', texto = '$texto'
                  WHERE id = $id";
         // Executa SQL e retorna dados
-
+        $deleteActual = "DELETE FROM noticia_tipo WHERE noticia_id = '$id'";
+        $this->db->executeSQL($deleteActual);
+        $categories = $noticias->getTipoNoticiaList();
+        $sqlCategories = "INSERT INTO noticia_tipo(noticia_id, tipo_id) VALUES(%noticia, %categoria)";
+        foreach($categories as $index => $catId) {
+            $query = str_replace("%noticia", $id, $sqlCategories);
+            $query = str_replace("%categoria", (int) $catId, $query);
+            $this->db->executeSQL($query);
+        }
         return $this->db->executeSQL($sql);
     }
     public function edit_file($noticias)
@@ -116,14 +135,14 @@ class NoticiaModel
         // Cria vetor
         $lista = array();
         // Converte resposta da consulta em um objeto e armazena em uma lista
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $noticias = new Noticias();
             $noticias->setId($obj->id);
             $noticias->setTitulo($obj->titulo);
             $noticias->setData($obj->data);
             $noticias->setHora($obj->hora);
             $noticias->setSintese($obj->sintese);
-            $noticias->setTipoNoticia(($obj->tipoNoticia_id));
+            $noticias->setTipoNoticia(($obj->categoria));
             $noticias->setTexto($obj->texto);
 
             $lista[] = $noticias;
@@ -139,16 +158,17 @@ class NoticiaModel
         $rs = $this->db->executeSQL($sql);
         // retorna último ID inserido na tabela
         // Converte dados em obj 
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $noticias = new Noticias();
         $noticias->setId($obj->id);
         return $noticias;
     }
+    // SELECT n.*, t.tipo FROM noticias n JOIN noticia_tipo nt JOIN tiponoticia t WHERE t.id = nt.tipo_id AND n.id = nt.noticia_id order by n.titulo
     private function criarTabela()
     {
         $sql = array();
         $sql[] = "
-        CREATE TABLE IF NOT EXISTS Noticias  (
+        CREATE TABLE IF NOT EXISTS $this->tabela  (
             id int NOT NULL AUTO_INCREMENT ,
             titulo varchar(45)   NOT NULL,
             sintese TEXT NULL,
@@ -159,12 +179,6 @@ class NoticiaModel
           ) 
         ";
         $sql[] = "ALTER TABLE $this->tabela ADD COLUMN IF NOT EXISTS arquivo VARCHAR(40) null;";
-        $sql[] = "ALTER TABLE  Noticias ADD COLUMN IF NOT EXISTS tipoNoticia_id int(40) null,
-                    ADD CONSTRAINT FK_Noticia_Tipo
-                    FOREIGN KEY (tipoNoticia_id) REFERENCES tipoNoticia(id)
-                    ON DELETE SET NULL
-                    ON UPDATE NO ACTION
-        ";
         // Executa código no banco de dados
         foreach ($sql as $consulta) {
             $this->db->executeSQL($consulta);

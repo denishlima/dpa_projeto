@@ -69,7 +69,7 @@ class AdministradorModel
         $id = $administrador->getId();
         $sql = "SELECT * FROM $this->tabela WHERE id = $id";
         $rs = $this->db->executeSQL($sql);
-        $obj = $rs->fetch_object();
+        $rs && $obj = $rs->fetch_object();
         $result = new Administrador();
         $result->setId($obj->id);
         $result->setNome($obj->nome);
@@ -112,8 +112,7 @@ class AdministradorModel
     public function converteEmObj($rs)
     {
         $lista = [];
-        if($rs == false) return $lista;
-        while ($obj = $rs->fetch_object()) {
+        while ($rs && $obj = $rs->fetch_object()) {
             $administrador = new Administrador();
             $administrador->setId($obj->id);
             $administrador->setNome($obj->nome);

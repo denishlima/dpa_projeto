@@ -12,7 +12,7 @@ class Noticias
     public $arquivo;
 
     /**
-     * Get the value of id
+     * @return mixed
      */
     public function getId()
     {
@@ -20,19 +20,15 @@ class Noticias
     }
 
     /**
-     * Set the value of id
-     *
-     * @return  self
+     * @param mixed $id
      */
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
-     * Get the value of titulo
+     * @return mixed
      */
     public function getTitulo()
     {
@@ -40,19 +36,15 @@ class Noticias
     }
 
     /**
-     * Set the value of titulo
-     *
-     * @return  self
+     * @param mixed $titulo
      */
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-
-        return $this;
     }
 
     /**
-     * Get the value of text
+     * @return mixed
      */
     public function getText()
     {
@@ -60,19 +52,15 @@ class Noticias
     }
 
     /**
-     * Set the value of text
-     *
-     * @return  self
+     * @param mixed $text
      */
     public function setText($text)
     {
         $this->text = $text;
-
-        return $this;
     }
 
     /**
-     * Get the value of sintese
+     * @return mixed
      */
     public function getSintese()
     {
@@ -80,19 +68,15 @@ class Noticias
     }
 
     /**
-     * Set the value of sintese
-     *
-     * @return  self
+     * @param mixed $sintese
      */
     public function setSintese($sintese)
     {
         $this->sintese = $sintese;
-
-        return $this;
     }
 
     /**
-     * Get the value of data
+     * @return mixed
      */
     public function getData()
     {
@@ -100,19 +84,15 @@ class Noticias
     }
 
     /**
-     * Set the value of data
-     *
-     * @return  self
+     * @param mixed $data
      */
     public function setData($data)
     {
         $this->data = $data;
-
-        return $this;
     }
 
     /**
-     * Get the value of hora
+     * @return mixed
      */
     public function getHora()
     {
@@ -120,19 +100,15 @@ class Noticias
     }
 
     /**
-     * Set the value of hora
-     *
-     * @return  self
+     * @param mixed $hora
      */
     public function setHora($hora)
     {
         $this->hora = $hora;
-
-        return $this;
     }
 
     /**
-     * Get the value of texto
+     * @return mixed
      */
     public function getTexto()
     {
@@ -140,35 +116,38 @@ class Noticias
     }
 
     /**
-     * Set the value of texto
-     *
-     * @return  self
+     * @param mixed $texto
      */
     public function setTexto($texto)
     {
         $this->texto = $texto;
-
-        return $this;
     }
+
+    /**
+     * @return mixed
+     */
     public function getTipoNoticia()
     {
         return $this->tipoNoticia;
     }
 
     /**
-     * Set the value of tipoNoticia
-     *
-     * @return  self
+     * @param mixed $tipoNoticia
      */
     public function setTipoNoticia($tipoNoticia)
     {
         $this->tipoNoticia = $tipoNoticia;
-
-        return $this;
     }
 
     /**
-     * Get the value of arquivo
+     * @return false|string[]
+     */
+    public function getTipoNoticiaList() {
+        return explode(',', $this->tipoNoticia);
+    }
+
+    /**
+     * @return mixed
      */
     public function getArquivo()
     {
@@ -176,18 +155,11 @@ class Noticias
     }
 
     /**
-     * Set the value of arquivo
-     *
-     * @return  self
+     * @param mixed $arquivo
      */
     public function setArquivo($arquivo)
     {
         $this->arquivo = $arquivo;
-
-        return $this;
     }
 
-    /**
-     * Get the value of tipoNoticia
-     */
 }

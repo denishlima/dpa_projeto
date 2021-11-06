@@ -5,7 +5,7 @@ if (!isset($_SESSION['administrador'])) {
     header("location: ../../login.php");
     exit;
 }
-if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
+if (isset($_POST['noticia']) && !empty($_POST['noticia']) && !empty($_POST['categories'])) {
     require_once "../../models/NoticiaModel.php";
     $NoticiaModel = new NoticiaModel();
     $Noticias = new Noticias();
@@ -13,7 +13,7 @@ if (isset($_POST['noticia']) && !empty($_POST['noticia'])) {
     $Noticias->setTitulo($_POST['titulo']);
     $Noticias->setSintese($_POST['sintese']);
     $Noticias->setTexto($_POST['noticia']);
-    $Noticias->setTipoNoticia(($_POST['tipo']));
+    $Noticias->setTipoNoticia($_POST['categories']);
     $rs = $NoticiaModel->edit($Noticias);
 
     if (!empty($_FILES['arquivo'])) {

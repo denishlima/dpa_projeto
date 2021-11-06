@@ -37,20 +37,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <form action="../../controllers/Noticias/edit.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $obj->getId(); ?>"></input>
             <div class="form-group">
-                <label for="idTipo">Tipo de Notícia:</label>
-                <select id="idTipo" class="form-control" name="tipo" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($lista as $t) { ?>
-                        <option value="<?php echo $t->getId(); ?>" <?php if ($t->getId() == $obj->getTipoNoticia()) echo "selected"; ?>> <?php echo $t->getTipoNoticia(); ?></option>
-                    <?php } ?>
-                </select>
+                <label for="example-post">Categoria:</label><br>
+                <p id="categories" class="form-control"></p>
             </div>
             <div class="form-group">
                 <label for="idTitulo">Titulo</label>
                 <input id="idTitulo" class="form-control" name="titulo" rows="" value="<?php echo $obj->getTitulo(); ?>" required></input>
             </div>
             <div class=" form-group">
-                <label for="idSintese">sintese</label>
+                <label for="idSintese">Sintese</label>
                 <input id="idSintese" class="form-control" name="sintese" rows="" value="<?php echo $obj->getSintese(); ?>" required></input>
             </div>
 
@@ -71,6 +66,16 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </form>
     </div>
     <?php include "../includes/js.php"; ?>
+    <script>
+        const categories = <?php echo $TipoNoticiaModel->toJsonSelect($lista); ?>;
+        VirtualSelect.init({
+            ele: '#categories',
+            options: categories,
+            name: 'categories',
+            search: true,
+            multiple: true,
+        });
+    </script>
 </body>
 
 </html>
