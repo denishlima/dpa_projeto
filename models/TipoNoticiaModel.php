@@ -120,23 +120,23 @@ class TipoNoticiaModel
             "
         ];
         $sql[] = "
-            CREATE TABLE IF NOT EXISTS noticia_tipo (
-              id INT(11) NOT NULL AUTO_INCREMENT,
-              noticia_id INT(11) NOT NULL,
-              tipo_id INT(11) NOT NULL,
-              PRIMARY KEY (`id`),
-              INDEX fk_tipo_noticia_idx (noticia_id ASC),
-              INDEX fk_noticia_tipo_idx (`tipo_id` ASC),
-              CONSTRAINT fk_noticia_tipo
-                FOREIGN KEY (tipo_id)
-                REFERENCES tiponoticia (id)
-                ON DELETE CASCADE
-                ON UPDATE CASCADE,
-              CONSTRAINT fk_tipo_noticia
-                FOREIGN KEY (noticia_id)
-                REFERENCES noticias (id)
-                ON DELETE CASCADE
-                ON UPDATE CASCADE)
+        CREATE TABLE IF NOT EXISTS `webservice`.`noticia_tipo` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `noticia_id` INT(11) NOT NULL,
+            `tipo_id` INT(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            INDEX `fk_noticia_tipo_noticias1_idx` (`noticia_id` ASC) VISIBLE,
+            INDEX `fk_noticia_tipo_tiponoticia1_idx` (`tipo_id` ASC) VISIBLE,
+            CONSTRAINT `fk_noticia_tipo_noticias1`
+              FOREIGN KEY (`noticia_id`)
+              REFERENCES `webservice`.`noticias` (`id`)
+              ON DELETE CASCADE
+              ON UPDATE CASCADE,
+            CONSTRAINT `fk_noticia_tipo_tiponoticia1`
+              FOREIGN KEY (`tipo_id`)
+              REFERENCES `webservice`.`tiponoticia` (`id`)
+              ON DELETE CASCADE
+              ON UPDATE CASCADE)
         ";
         foreach($sql as $consulta) {
             $this->db->executeSQL($consulta);
