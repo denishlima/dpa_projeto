@@ -1,10 +1,6 @@
 <?php
-session_start();
+include "../includes/config.php";
 
-if (!isset($_SESSION['administrador'])) {
-    header("location: ../../login.php");
-    exit;
-}
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = $_GET['id'];
 

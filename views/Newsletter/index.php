@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/NewsletterModel.php";
 $NewsletterModel = new NewsletterModel();
 $lista = $NewsletterModel->listar();

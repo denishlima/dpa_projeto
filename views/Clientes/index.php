@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/ClienteModel.php";
 $ClienteModel = new ClienteModel();
 $lista = $ClienteModel->listar();

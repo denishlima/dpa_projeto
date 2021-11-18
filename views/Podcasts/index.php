@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/PodcastModel.php";
 $PodcastModel = new PodcastModel();
 $lista = $PodcastModel->listar();

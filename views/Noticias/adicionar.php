@@ -1,10 +1,6 @@
 <?php
-session_start();
+include "../includes/config.php";
 
-if (!isset($_SESSION['administrador'])) {
-    header("location: ../../login.php");
-    exit;
-}
 require_once "../../models/TipoNoticiaModel.php";
 $TipoNoticiaModel = new TipoNoticiaModel();
 $lista = $TipoNoticiaModel->listar();

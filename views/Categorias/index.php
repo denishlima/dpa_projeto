@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/CategoriaModel.php";
 $CategoriaModel = new CategoriaModel();
 $lista = $CategoriaModel->listar();

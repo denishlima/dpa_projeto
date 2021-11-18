@@ -1,4 +1,5 @@
 <?php 
+include "../includes/config.php";
 # Requisita a classe
 require_once "../../models/CategoriaModel.php";
 # Gera instância da classe

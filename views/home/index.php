@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/AdministradorModel.php";
 ?>
 <!DOCTYPE html>

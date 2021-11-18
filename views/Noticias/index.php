@@ -1,4 +1,6 @@
 <?php
+include "../includes/config.php";
+
 require_once "../../models/NoticiaModel.php";
 $NoticiaModel = new NoticiaModel();
 $lista = $NoticiaModel->listar();

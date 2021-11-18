@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/ProdutoModel.php";
 $ProdutoModel = new ProdutoModel();
 $lista = $ProdutoModel->listar();

@@ -1,4 +1,5 @@
 <?php
+include "../includes/config.php";
 require_once "../../models/VideoModel.php";
 $videoModel = new VideoModel();
 $lista = $videoModel->listar();
