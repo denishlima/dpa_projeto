@@ -1,7 +1,8 @@
 <?php
-include "../../views/includes/config.php";
 require_once "../../models/ProdutoModel.php";
 $ProdutoModel = new ProdutoModel();
 $lista = $ProdutoModel->listar();
 
-echo json_encode($lista);
+header("Content-type: application/json; charset=utf-8");
+
+return json_encode($lista);
